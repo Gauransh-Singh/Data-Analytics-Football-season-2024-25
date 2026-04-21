@@ -39,7 +39,4 @@ Source: Kaggle — hubertsidorowicz
 
 <img width="1437" height="806" alt="Screenshot 2026-04-21 200146" src="https://github.com/user-attachments/assets/a584135a-08ad-46a8-bb0f-9e185a696a35" />
 
-## How to Run
-pip install pandas plotly
-Run notebooks in order 01 → 07
 
