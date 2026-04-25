@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Football Players Stats 2024/25</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c10;
+    --bg2: #0d1318;
+    --bg3: #121920;
+    --card: #0f1922;
+    --border: rgba(255,255,255,0.06);
+    --accent: #00e5a0;
+    --accent2: #ff4757;
+    --accent3: #ffd32a;
+    --text: #e8edf2;
+    --muted: #5a6a7a;
+    --epl: #3d195b;
+    --laliga: #ee8707;
+    --seriea: #008fd7;
+    --bundesliga: #d3010c;
+    --ligue1: #c8102e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* PITCH GRID BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    z-index: 10;
+    padding: 60px 48px 40px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(0,229,160,0.04) 0%, transparent 100%);
+  }
+
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .header-left {}
+
+  .season-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.2);
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .season-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: var(--text);
+  }
+
+  h1 span { color: var(--accent); }
+
+  .header-sub {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  .header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  .league-flags {
+    display: flex;
+    gap: 8px;
+  }
+
+  .flag {
+    width: 36px; height: 24px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: .05em;
+  }
+
+  /* MAIN LAYOUT */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 48px 80px;
+  }
+
+  /* KPI CARDS */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .kpi {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .3s, transform .3s;
+    animation: fadeUp .6s ease both;
+  }
+
+  .kpi:nth-child(1) { animation-delay: .1s; }
+  .kpi:nth-child(2) { animation-delay: .2s; }
+  .kpi:nth-child(3) { animation-delay: .3s; }
+  .kpi:nth-child(4) { animation-delay: .4s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .kpi:hover {
+    border-color: rgba(0,229,160,0.2);
+    transform: translateY(-2px);
+  }
+
+  .kpi::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s ease;
+  }
+
+  .kpi:hover::after { transform: scaleX(1); }
+
+  .kpi-icon {
+    font-size: 20px;
+    margin-bottom: 12px;
+    opacity: 0.7;
+  }
+
+  .kpi-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+
+  .kpi-label {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-weight: 500;
+  }
+
+  /* SECTION TITLES */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: .05em;
+    color: var(--text);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-badge {
+    font-size: 11px;
+    color: var(--accent);
+    border: 1px solid rgba(0,229,160,0.2);
+    padding: 3px 10px;
+    border-radius: 3px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  /* GRID LAYOUTS */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    animation: fadeUp .6s ease both;
+  }
+
+  .card-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  /* BAR CHARTS */
+  .bar-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .bar-item {
+    display: grid;
+    grid-template-columns: 160px 1fr 36px;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bar-name {
+    font-size: 13px;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+  }
+
+  .bar-track {
+    height: 6px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--accent);
+    width: 0;
+    transition: width 1.2s cubic-bezier(.4,0,.2,1);
+  }
+
+  .bar-fill.goals { background: linear-gradient(90deg, #00e5a0, #00b377); }
+  .bar-fill.assists { background: linear-gradient(90deg, #ffd32a, #e6a800); }
+  .bar-fill.xg-over { background: linear-gradient(90deg, #ff4757, #cc0011); }
+
+  .bar-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    text-align: right;
+    font-weight: 500;
+  }
+
+  .bar-val.assists { color: var(--accent3); }
+  .bar-val.xg-over { color: var(--accent2); }
+
+  /* LEAGUE CHART */
+  .league-bars { display: flex; flex-direction: column; gap: 14px; }
+
+  .league-item {}
+
+  .league-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .league-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: .03em;
+  }
+
+  .league-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .league-track {
+    height: 8px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .league-fill {
+    height: 100%;
+    border-radius: 4px;
+    width: 0;
+    transition: width 1.4s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* POSITION DONUT */
+  .donut-wrap {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .donut-svg { flex-shrink: 0; }
+
+  .donut-legend { display: flex; flex-direction: column; gap: 12px; }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .legend-label {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .legend-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-left: auto;
+    padding-left: 16px;
+  }
+
+  /* FINDINGS */
+  .findings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .finding-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .3s;
+    animation: fadeUp .6s ease both;
+  }
+
+  .finding-card:hover { border-color: rgba(0,229,160,0.15); }
+
+  .finding-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    line-height: 1;
+    color: rgba(0,229,160,0.06);
+    position: absolute;
+    top: 10px; right: 16px;
+    pointer-events: none;
+  }
+
+  .finding-icon { font-size: 22px; margin-bottom: 10px; }
+
+  .finding-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  .finding-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .finding-highlight {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* LEAGUE STATS TABLE */
+  .stats-table { width: 100%; border-collapse: collapse; }
+
+  .stats-table th {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    font-weight: 500;
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stats-table td {
+    font-size: 13px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .stats-table tr:last-child td { border-bottom: none; }
+
+  .stats-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .stats-table td:not(:first-child) {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .league-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 2px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 24px 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .footer-left strong { color: var(--accent); }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-link {
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color .2s;
+  }
+
+  .footer-link:hover { color: var(--accent); }
+
+  /* SCROLL ANIMATION TRIGGER */
+  .animate { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  .animate.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    header, main { padding: 32px 24px; }
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .findings-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="season-badge">Live Stats · 2024/25 Season</div>
+      <h1>Football<br><span>Analytics</span></h1>
+      <p class="header-sub">Top 5 European Leagues &nbsp;·&nbsp; 2,694 Players &nbsp;·&nbsp; 165 Variables &nbsp;</p>
+    </div>
+    <div class="header-right">
+      <div class="league-flags">
+        <div class="flag" style="background:#3d195b">EPL</div>
+        <div class="flag" style="background:#ee8707">LAL</div>
+        <div class="flag" style="background:#008fd7">SRA</div>
+        <div class="flag" style="background:#d3010c">BUN</div>
+        <div class="flag" style="background:#c8102e">LIG</div>
+      </div>
+      <div style="font-size:11px;color:var(--muted);text-align:right">Premier League · La Liga · Serie A<br>Bundesliga · Ligue 1</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-icon">⚽</div>
+      <div class="kpi-value" data-target="2694" data-current="0">0</div>
+      <div class="kpi-label">Total Players</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon">🏆</div>
+      <div class="kpi-value" data-target="5" data-current="0">0</div>
+      <div class="kpi-label">Leagues Covered</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon">🎯</div>
+      <div class="kpi-value" data-target="4800" data-current="0">0</div>
+      <div class="kpi-label">Total Goals Scored</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon">📅</div>
+      <div class="kpi-value" data-target="2505" data-current="0" data-decimal="true">0</div>
+      <div class="kpi-label">Average Age</div>
+    </div>
+  </div>
+
+  <!-- TOP SCORERS & ASSISTERS -->
+  <div class="section-header animate">
+    <div class="section-title">Player Rankings</div>
+    <div class="section-line"></div>
+    <div class="section-badge">Top 10</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card animate" style="animation-delay:.1s">
+      <div class="card-title">⚽ Top Goal Scorers</div>
+      <div class="bar-list" id="scorers-list"></div>
+    </div>
+    <div class="card animate" style="animation-delay:.2s">
+      <div class="card-title">🎯 Top Assist Providers</div>
+      <div class="bar-list" id="assists-list"></div>
+    </div>
+  </div>
+
+  <!-- XG OVERPERFORMERS + POSITION DIST -->
+  <div class="section-header animate">
+    <div class="section-title">xG Analysis</div>
+    <div class="section-line"></div>
+    <div class="section-badge">Expected vs Actual</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card animate" style="animation-delay:.1s">
+      <div class="card-title">📈 Biggest xG Overperformers <span style="color:var(--muted);font-size:10px">(min 5 xG)</span></div>
+      <div class="bar-list" id="xg-list"></div>
+    </div>
+    <div class="card animate" style="animation-delay:.2s">
+      <div class="card-title">🔵 Player Distribution by Position</div>
+      <div class="donut-wrap">
+        <svg class="donut-svg" width="160" height="160" viewBox="0 0 160 160" id="donut-svg">
+          <circle cx="80" cy="80" r="60" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="24"/>
+        </svg>
+        <div class="donut-legend" id="donut-legend"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEAGUE ANALYSIS -->
+  <div class="section-header animate">
+    <div class="section-title">League Analysis</div>
+    <div class="section-line"></div>
+    <div class="section-badge">5 Leagues</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card animate" style="animation-delay:.1s">
+      <div class="card-title">🏟️ Total Goals by League</div>
+      <div class="league-bars" id="league-goals"></div>
+    </div>
+    <div class="card animate" style="animation-delay:.2s">
+      <div class="card-title">📊 League Stats Comparison</div>
+      <table class="stats-table" id="league-table"></table>
+    </div>
+  </div>
+
+  <!-- KEY FINDINGS -->
+  <div class="section-header animate">
+    <div class="section-title">Key Findings</div>
+    <div class="section-line"></div>
+    <div class="section-badge">Insights</div>
+  </div>
+
+  <div class="findings-grid" id="findings-grid"></div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      Built by <strong>Gauransh Singh</strong> &nbsp;·&nbsp; Data: FBref via Kaggle (hubertsidorowicz) &nbsp;·&nbsp; Tools: Python · Pandas · Plotly · Power BI
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/Gauransh-Singh" class="footer-link" target="_blank">⌥ GitHub</a>
+      <a href="https://gauransh-singh.github.io" class="footer-link" target="_blank">◈ Portfolio</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── DATA ─────────────────────────────────────────────────────────────────────
+const SCORERS = [
+  ['Kylian Mbappé', 31], ['Mohamed Salah', 29], ['Robert Lewandowski', 27],
+  ['Harry Kane', 26], ['Mateo Retegui', 25], ['Alexander Isak', 23],
+  ['Erling Haaland', 22], ['Omar Marmoush', 22], ['Ante Budimir', 21],
+  ['Mason Greenwood', 21]
+];
+
+const ASSISTS = [
+  ['Mohamed Salah', 18], ['Michael Olise', 15], ['Lamine Yamal', 13],
+  ['Florian Wirtz', 12], ['Jacob Murphy', 12], ['Anthony Elanga', 11],
+  ['Gaëtan Perrin', 11], ['Rayan Cherki', 11], ['Vincenzo Grifo', 11],
+  ['Antonee Robinson', 10]
+];
+
+const XG_OVER = [
+  ['Patrik Schick', 8.3], ['Bryan Mbeumo', 7.7], ['Omar Marmoush', 7.7],
+  ['Chris Wood', 6.6], ['Matheus Cunha', 6.4], ['Ayoze Pérez', 6.3],
+  ['Mateo Retegui', 6.1], ['Harry Kane', 5.7]
+];
+
+const LEAGUES = [
+  { name: 'Premier League', color: '#3d195b', goals: 1082, pass: 78.99, tackles: 23.30, age: 25.10 },
+  { name: 'La Liga',        color: '#ee8707', goals: 969,  pass: 76.19, tackles: 20.59, age: 25.36 },
+  { name: 'Serie A',        color: '#008fd7', goals: 933,  pass: 77.88, tackles: 18.21, age: 25.24 },
+  { name: 'Bundesliga',     color: '#d3010c', goals: 934,  pass: 76.08, tackles: 19.30, age: 25.23 },
+  { name: 'Ligue 1',        color: '#c8102e', goals: 885,  pass: 78.99, tackles: 19.88, age: 24.12 },
+];
+
+const POSITIONS = [
+  { label: 'Defender', code: 'DF', count: 969,  color: '#457b9d' },
+  { label: 'Midfielder',code: 'MF', count: 853,  color: '#2a9d8f' },
+  { label: 'Forward',   code: 'FW', count: 672,  color: '#e63946' },
+  { label: 'Goalkeeper',code: 'GK', count: 208,  color: '#6a4c93' },
+];
+
+const FINDINGS = [
+  { icon: '👑', title: 'Mohamed Salah — Season of Seasons', desc: 'Led ALL players with <span class="finding-highlight">29 goals</span> and <span class="finding-highlight">18 assists</span> — the only player to top both categories across 5 leagues.', num: '01' },
+  { icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', title: 'Premier League — Most Intense', desc: 'Averaged <span class="finding-highlight">23.3 tackles</span> per player — highest defensive intensity of all 5 leagues, reflecting its physical style.', num: '02' },
+  { icon: '🇩🇪', title: 'Bundesliga — Direct & Aggressive', desc: 'Lowest pass completion at <span class="finding-highlight">76.08%</span> — a clear statistical signature of Germany\'s high-press, direct play style.', num: '03' },
+  { icon: '📈', title: 'Patrik Schick — xG Buster', desc: 'Biggest xG overperformer — scored <span class="finding-highlight">8.3 goals more</span> than his expected goals model predicted.', num: '04' },
+  { icon: '🇫🇷', title: 'Ligue 1 — Youngest League', desc: 'Average player age of <span class="finding-highlight">24.12 years</span> — the youngest of all 5 leagues, highlighting French football\'s focus on youth development.', num: '05' },
+  { icon: '⚽', title: 'Premier League — Most Goals', desc: 'Scored <span class="finding-highlight">1,082 total goals</span> — the highest of any league, 197 more than second-placed La Liga (885).', num: '06' },
+];
+
+// ── RENDER BAR LIST ───────────────────────────────────────────────────────────
+function renderBars(containerId, data, maxVal, cssClass) {
+  const el = document.getElementById(containerId);
+  data.forEach(([name, val]) => {
+    const pct = (val / maxVal * 100).toFixed(1);
+    el.innerHTML += `
+      <div class="bar-item">
+        <div class="bar-name">${name}</div>
+        <div class="bar-track">
+          <div class="bar-fill ${cssClass}" data-width="${pct}%"></div>
+        </div>
+        <div class="bar-val ${cssClass}">${val}</div>
+      </div>`;
+  });
+}
+
+// ── RENDER LEAGUE GOALS ────────────────────────────────────────────────────────
+function renderLeagueGoals() {
+  const max = Math.max(...LEAGUES.map(l => l.goals));
+  const el = document.getElementById('league-goals');
+  LEAGUES.forEach(l => {
+    const pct = (l.goals / max * 100).toFixed(1);
+    el.innerHTML += `
+      <div class="league-item">
+        <div class="league-header">
+          <div class="league-name">${l.name}</div>
+          <div class="league-val">${l.goals} goals</div>
+        </div>
+        <div class="league-track">
+          <div class="league-fill" data-width="${pct}%" style="background:${l.color}"></div>
+        </div>
+      </div>`;
+  });
+}
+
+// ── RENDER LEAGUE TABLE ────────────────────────────────────────────────────────
+function renderLeagueTable() {
+  const el = document.getElementById('league-table');
+  el.innerHTML = `
+    <thead>
+      <tr>
+        <th>League</th>
+        <th>Goals</th>
+        <th>Pass %</th>
+        <th>Tackles</th>
+        <th>Avg Age</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${LEAGUES.map(l => `
+        <tr>
+          <td><span class="league-dot" style="background:${l.color}"></span>${l.name}</td>
+          <td>${l.goals}</td>
+          <td>${l.pass}%</td>
+          <td>${l.tackles}</td>
+          <td>${l.age}</td>
+        </tr>
+      `).join('')}
+    </tbody>`;
+}
+
+// ── RENDER DONUT ──────────────────────────────────────────────────────────────
+function renderDonut() {
+  const total = POSITIONS.reduce((s, p) => s + p.count, 0);
+  const svg = document.getElementById('donut-svg');
+  const legend = document.getElementById('donut-legend');
+  const r = 60, cx = 80, cy = 80, stroke = 24;
+  const circ = 2 * Math.PI * r;
+  let offset = 0;
+
+  POSITIONS.forEach(p => {
+    const pct = p.count / total;
+    const dash = pct * circ;
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', cx);
+    circle.setAttribute('cy', cy);
+    circle.setAttribute('r', r);
+    circle.setAttribute('fill', 'none');
+    circle.setAttribute('stroke', p.color);
+    circle.setAttribute('stroke-width', stroke);
+    circle.setAttribute('stroke-dasharray', `${dash} ${circ - dash}`);
+    circle.setAttribute('stroke-dashoffset', -offset);
+    circle.setAttribute('transform', `rotate(-90 ${cx} ${cy})`);
+    circle.style.transition = 'stroke-dasharray 1.2s ease';
+    svg.appendChild(circle);
+    offset += dash;
+
+    legend.innerHTML += `
+      <div class="legend-item">
+        <div class="legend-dot" style="background:${p.color}"></div>
+        <div class="legend-label">${p.label}</div>
+        <div class="legend-pct">${(pct * 100).toFixed(1)}%</div>
+      </div>`;
+  });
+}
+
+// ── RENDER FINDINGS ───────────────────────────────────────────────────────────
+function renderFindings() {
+  const el = document.getElementById('findings-grid');
+  FINDINGS.forEach((f, i) => {
+    el.innerHTML += `
+      <div class="finding-card animate" style="animation-delay:${i * .1}s">
+        <div class="finding-num">${f.num}</div>
+        <div class="finding-icon">${f.icon}</div>
+        <div class="finding-title">${f.title}</div>
+        <div class="finding-desc">${f.desc}</div>
+      </div>`;
+  });
+}
+
+// ── COUNTER ANIMATION ─────────────────────────────────────────────────────────
+function animateCounters() {
+  document.querySelectorAll('[data-target]').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    const isDecimal = el.dataset.decimal;
+    const duration = 1800;
+    const start = performance.now();
+    const update = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const val = Math.round(target * eased);
+      el.textContent = isDecimal
+        ? (val / 100).toFixed(2)
+        : val.toLocaleString();
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  });
+}
+
+// ── ANIMATE BARS ON SCROLL ────────────────────────────────────────────────────
+function animateBars() {
+  document.querySelectorAll('[data-width]').forEach(el => {
+    el.style.width = el.dataset.width;
+  });
+}
+
+// ── INTERSECTION OBSERVER ─────────────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+renderBars('scorers-list', SCORERS, 31, 'goals');
+renderBars('assists-list', ASSISTS, 18, 'assists');
+renderBars('xg-list', XG_OVER, 8.3, 'xg-over');
+renderLeagueGoals();
+renderLeagueTable();
+renderDonut();
+renderFindings();
+
+setTimeout(() => {
+  animateCounters();
+  animateBars();
+}, 400);
+
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
