@@ -3,14 +3,9 @@
 > End-to-end data analytics project analyzing **2,694 professional footballers** across the top 5 European leagues using Python and Power BI.
 
 ## 🔗 Quick Links
-<a href="https://gauransh-singh.github.io/Data-Analytics-Football-season-2024-25/Web/index.html" target="_blank">
-  <img src="https://img.shields.io/badge/Live%20Dashboard-View%20Here-00e5a0?style=for-the-badge" alt="Live Dashboard"/>
-</a>
+[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-View%20Here-00e5a0?style=for-the-badge)](https://gauransh-singh.github.io/Data-Analytics-Football-season-2024-25/Web/index.html)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/Gauransh-Singh/data-analytics-football-season-2024-25)
-<a href="https://www.linkedin.com/posts/gauransh-singh-211586294_dataanalytics-python-powerbi-ugcPost-7449704503110692864-Yim0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEdGra0BCqfscl-7qFPqTYIKnrC1zsbXh5M" target="_blank">
-  <img src="https://img.shields.io/badge/LinkedIn-Demo%20Video-0077B5?style=for-the-badge&logo=linkedin" alt="LinkedIn Demo Video"/>
-</a>
-
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Demo%20Video-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/posts/gauransh-singh-211586294_dataanalytics-python-powerbi-ugcPost-7449704503110692864-Yim0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEdGra0BCqfscl-7qFPqTYIKnrC1zsbXh5M)
 
 
 ---
