@@ -2,6 +2,12 @@
 
 > End-to-end data analytics project analyzing **2,694 professional footballers** across the top 5 European leagues using Python and Power BI.
 
+## 🔗 Quick Links
+[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-View%20Here-00e5a0?style=for-the-badge)](https://gauransh-singh.github.io/data-analytics-football-season-2024-25/football_dashboard.html)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/Gauransh-Singh/data-analytics-football-season-2024-25)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Demo%20Video-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/posts/gauransh-singh-211586294_dataanalytics-python-powerbi-ugcPost-7449704503110692864-Yim0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEdGra0BCqfscl-7qFPqTYIKnrC1zsbXh5M)
+
+
 ---
 
 ## 📌 Project Overview
@@ -35,12 +41,12 @@ This project covers the complete data analytics workflow — from raw data inges
 ```
 football-players-stats-2024-25/
 │
-├── data/
+├── Data/
 │   ├── players_data_light-2024_2025.csv   ← raw dataset (light version)
 │   ├── player_clean.csv                   ← one row per player (aggregated)
 │   └── league_clean.csv                   ← one row per player per club stint
 │
-├── notebooks/
+├── Notebooks/
 │   ├── 01_data_cleaning.ipynb
 │   ├── 02_phase1_overview.ipynb
 │   ├── 03_phase2_player_rankings.ipynb
@@ -49,10 +55,10 @@ football-players-stats-2024-25/
 │   ├── 06_phase5_position_analysis.ipynb
 │   └── 07_phase6_correlation.ipynb
 │
-├── dashboard/
+├── Dashboard/
 │   └── Football_2024-25.pbix
 │
-├── web/
+├── Web/
 │   └── index.html            ← standalone web dashboard
 │
 └── README.md
@@ -207,7 +213,7 @@ BCA Student · AI/ML Specialization · Greater Noida, India
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-gauransh--singh.github.io-00e5a0?style=flat)](https://gauransh-singh.github.io)
 [![GitHub](https://img.shields.io/badge/GitHub-Gauransh--Singh-181717?style=flat&logo=github)](https://github.com/Gauransh-Singh)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=flat&logo=linkedin)](https://linkedin.com/in/your-linkedin)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=flat&logo=linkedin)](www.linkedin.com/in/gauransh-singh-211586294)
 
 ---
 
