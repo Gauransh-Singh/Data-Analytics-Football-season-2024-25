@@ -50,10 +50,10 @@ football-players-stats-2024-25/
 │   └── 07_phase6_correlation.ipynb
 │
 ├── dashboard/
-│   └── football_dashboard.pbix
+│   └── Football_2024-25.pbix
 │
 ├── web/
-│   └── football_dashboard.html            ← standalone web dashboard
+│   └── index.html            ← standalone web dashboard
 │
 └── README.md
 ```
